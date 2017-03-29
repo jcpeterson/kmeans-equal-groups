@@ -9,7 +9,8 @@ import random
 4. Repeat 2-3 until clusters are balanced
 
 """
- 
+#### BEWARE: VORONOI CELLS ARE SOMETIMES NOT CONTIGUOUS AFTER BALANCING CLUSTERS ####
+
 def cluster_points(X, mu):
     clusters  = {}
     for x in X:
@@ -93,7 +94,7 @@ def find_smallest_cluster(clusters):
     # returns the key of the smallest cluster
     return min(clusters.keys(), key=lambda i: len(clusters[i]))
 
-def kmeans_equal_groups(X, K, steal=True):
+def fit(X, K, steal=True):
     k_means = find_centers(X, K)
     mu = k_means[0]
     clusters = k_means[1]
@@ -102,26 +103,6 @@ def kmeans_equal_groups(X, K, steal=True):
 
 
 
-# for testing purposes
-def init_board(N):
-    X = np.array([(random.uniform(-10, 10), random.uniform(-10, 10)) for i in range(N)])
-    return X
-
-def init_board_gauss(N, k):
-    n = float(N)/k
-    X = []
-    for i in range(k):
-        c = (random.uniform(-1, 1), random.uniform(-1, 1))
-        s = random.uniform(0.05,0.5)
-        x = []
-        while len(x) < n:
-            a, b = np.array([np.random.normal(c[0], s), np.random.normal(c[1], s)])
-            # Continue drawing points from the distribution in the range [-1,1]
-            if abs(a) < 1 and abs(b) < 1:
-                x.append([a,b])
-        X.extend(x)
-    X = np.array(X)[:N]
-    return X
 
 
 
