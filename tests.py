@@ -6,7 +6,6 @@ import random
 
 def plot(tup):
 	print "plot is a test function that supports 8 colors. if plotting >8 clusters, please consider using a different implementation"
-	
 	plt.cla()
 	color = ['r', 'g', 'b', 'c', 'm', 'y', 'k', 'w' ]
 	i=0
