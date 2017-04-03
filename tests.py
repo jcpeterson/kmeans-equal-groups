@@ -5,6 +5,9 @@ import random
 
 
 def plot(tup):
+	# plots the output in the format of k_means_equal_groups 
+	# the centroids for each cluster are plotted as diamonds of the color of the cluster
+	# each cluster is plotted in different color, supports up to 8 colors
 	print "plot is a test function that supports 8 colors. if plotting >8 clusters, please consider using a different implementation"
 	plt.cla()
 	color = ['r', 'g', 'b', 'c', 'm', 'y', 'k', 'w' ]
@@ -22,10 +25,12 @@ def plot(tup):
 
 
 def init_board(N):
-	X = np.array([(random.uniform(-10, 10), random.uniform(-10, 10)) for i in range(N)])
+	# generates random 2D points 
+	X = np.array([(random.uniform(-1, 1), random.uniform(-1, 1)) for i in range(N)])
 	return X
 
 def init_board_gauss(N, k):
+	# generates random 2D points with gaussian noise
 	n = float(N)/k
 	X = []
 	for i in range(k):
