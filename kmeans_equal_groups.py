@@ -24,7 +24,7 @@ def cluster_points(X, mu):
     return clusters
  
 def reevaluate_centers(mu, clusters):
-    # computes new centroids for clusters
+    # returns an array of new centroids for clusters
     newmu = []
     keys = sorted(clusters.keys())
     for k in keys:
