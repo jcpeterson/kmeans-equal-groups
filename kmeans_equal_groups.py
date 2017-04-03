@@ -12,6 +12,7 @@ import random
 #### BEWARE: VORONOI CELLS ARE SOMETIMES NOT CONTIGUOUS AFTER BALANCING CLUSTERS ####
 
 def cluster_points(X, mu):
+    # assigns points in X to centroids in mu
     clusters  = {}
     for x in X:
         bestmukey = min([(i[0], np.linalg.norm(x-mu[i[0]])) \
@@ -23,6 +24,7 @@ def cluster_points(X, mu):
     return clusters
  
 def reevaluate_centers(mu, clusters):
+    # computes new centroids for clusters
     newmu = []
     keys = sorted(clusters.keys())
     for k in keys:
@@ -30,9 +32,11 @@ def reevaluate_centers(mu, clusters):
     return newmu
  
 def has_converged(mu, oldmu):
+    # checks if k-means algorithm has converged
     return (set([tuple(a) for a in mu]) == set([tuple(a) for a in oldmu]))
  
 def find_centers(X, K):
+    # k-means algorithm driver function
     # Initialize to K random centers
     oldmu = random.sample(X, K)
     mu = random.sample(X, K)
@@ -45,6 +49,7 @@ def find_centers(X, K):
     return(mu, clusters)
  
 def is_balanced(X, K, clusters):
+    # checks if clusters are balanced, i.e. contain equal number of data points (+-1 in odd cases)
     if K == 1:
         return True  
 
@@ -60,6 +65,8 @@ def is_balanced(X, K, clusters):
 
 
 def balance_clusters(X, mu, clusters, steal=True):
+    # reassigns points to different clusters and adjusts the means of the source clusters
+    # until the clusters are balanced
     # steal=True makes the smaller cluster steal from a larger cluster
     # of size at least n+2 to avoid infinite loops
     K = len(mu)
@@ -95,6 +102,7 @@ def find_smallest_cluster(clusters):
     return min(clusters.keys(), key=lambda i: len(clusters[i]))
 
 def fit(X, K, steal=True):
+    # driver function for balanced k-means. finds k-means, then balances the clusters
     k_means = find_centers(X, K)
     mu = k_means[0]
     clusters = k_means[1]
